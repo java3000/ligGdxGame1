@@ -9,6 +9,7 @@ public class Duck {
     private Vector2 position;
     private Vector2 velocity;
     private static Texture texture;
+    InputHandler handler = new InputHandler();
 
     public Duck(Vector2 position, Vector2 velocity) {
         this.position = position;
@@ -16,7 +17,7 @@ public class Duck {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(texture,position.x, position.y);
+        batch.draw(texture,position.x - texture.getWidth()/2, position.y - texture.getHeight()/2);
     }
 
     public void dispose() {
@@ -29,6 +30,7 @@ public class Duck {
         if (position.y < -texture.getHeight()) position.y = Gdx.graphics.getHeight();
         if (position.x > Gdx.graphics.getWidth()) position.x = -texture.getWidth();
         if (position.y > Gdx.graphics.getHeight()) position.y = -texture.getHeight();
+
     }
 
     public Vector2 getPosition() {
