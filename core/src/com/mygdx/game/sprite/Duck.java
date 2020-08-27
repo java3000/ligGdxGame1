@@ -1,18 +1,22 @@
-package com.mygdx.game;
+package com.mygdx.game.sprite;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Duck {
+    private  Texture texture;
     private Vector2 position;
     private Vector2 velocity;
-    private  Texture texture;
+    private Rectangle bounds;
 
-    public Duck(Vector2 position, Vector2 velocity) {
-        this.position = position;
-        this.velocity = velocity;
+    public Duck() {
+        this.position = new Vector2(0,0);
+        this.velocity = new Vector2(2.0f,2.0f);
+        this.texture = new Texture("duck.png");
+        bounds = new Rectangle(position.x,position.y, texture.getWidth(),texture.getHeight());
     }
 
     public void render(SpriteBatch batch) {
@@ -29,6 +33,10 @@ public class Duck {
         if (position.y < -texture.getHeight()) position.y = Gdx.graphics.getHeight();
         if (position.x > Gdx.graphics.getWidth()) position.x = -texture.getWidth();
         if (position.y > Gdx.graphics.getHeight()) position.y = -texture.getHeight();
+    }
+
+    public boolean collide(Rectangle player) {
+        return bounds.overlaps(player);
     }
 
     public Vector2 getPosition() {
