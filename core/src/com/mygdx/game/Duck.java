@@ -8,8 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Duck {
     private Vector2 position;
     private Vector2 velocity;
-    private static Texture texture;
-    InputHandler handler = new InputHandler();
+    private  Texture texture;
 
     public Duck(Vector2 position, Vector2 velocity) {
         this.position = position;
@@ -30,7 +29,6 @@ public class Duck {
         if (position.y < -texture.getHeight()) position.y = Gdx.graphics.getHeight();
         if (position.x > Gdx.graphics.getWidth()) position.x = -texture.getWidth();
         if (position.y > Gdx.graphics.getHeight()) position.y = -texture.getHeight();
-
     }
 
     public Vector2 getPosition() {
@@ -49,7 +47,11 @@ public class Duck {
         this.velocity = velocity;
     }
 
-    public static void setTexture(Texture texture) {
-        Duck.texture = texture;
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
     }
 }
