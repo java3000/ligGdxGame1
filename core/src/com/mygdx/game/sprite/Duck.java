@@ -11,16 +11,21 @@ public class Duck {
     private Vector2 position;
     private Vector2 velocity;
     private Rectangle bounds;
+    private boolean isKilled;
 
-    public Duck() {
-        this.position = new Vector2(0,0);
-        this.velocity = new Vector2(2.0f,2.0f);
+    public Duck(Vector2 position, Vector2 velocity) {
+        this.position = position;
+        this.velocity = velocity;
         this.texture = new Texture("duck.png");
         bounds = new Rectangle(position.x,position.y, texture.getWidth(),texture.getHeight());
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(texture,position.x - texture.getWidth()/2, position.y - texture.getHeight()/2);
+        if (!isKilled) {
+            batch.draw(texture, position.x, position.y);
+        } else {
+            batch.draw(texture,position.x,position.y,texture.getWidth()/2,texture.getHeight()/2,texture.getWidth(),texture.getHeight(),1,1,40,0,0,64,64,false,false);
+        }
     }
 
     public void dispose() {
@@ -61,5 +66,13 @@ public class Duck {
 
     public void setTexture(Texture texture) {
         this.texture = texture;
+    }
+
+    public boolean isKilled() {
+        return isKilled;
+    }
+
+    public void setKilled(boolean killed) {
+        isKilled = killed;
     }
 }
