@@ -15,6 +15,7 @@ public class PlayState extends AbstractState {
     private BitmapFont font;
     private Texture sight;
     private Texture fon;
+    private Texture gras;
     private int score;
     private final int DUCKS_COUNT = 5;
     private Duck[] ducks;
@@ -24,8 +25,9 @@ public class PlayState extends AbstractState {
     public PlayState(GameStateManager gsm) {
         super(gsm);
         fon = new Texture("fon.png");
-        sight = new Texture("sight_red.png");
+        sight = new Texture("sight.png");
         font = new BitmapFont(Gdx.files.internal("myfont.fnt"),Gdx.files.internal("myfont.png"),false);
+        gras = new Texture("gras.png");
         score = 0;
         ducks = new Duck[DUCKS_COUNT];
         rand = new Random();
@@ -38,12 +40,7 @@ public class PlayState extends AbstractState {
     public void update(float delta) {
         for (int i = 0; i < DUCKS_COUNT; i++) {
             ducks[i].update();
-            if (InputHandler.isPressed()) {
-                if (ducks[i].collide(new Rectangle(InputHandler.getMousePosition().x, InputHandler.getMousePosition().y, sight.getWidth() - sight.getWidth() / 2, sight.getHeight() - sight.getHeight() / 2))) {
-                    ducks[i].setKilled(true);
 
-                }
-            }
         }
 
     }
@@ -56,6 +53,7 @@ public class PlayState extends AbstractState {
             ducks[i].render(batch);
         }
         font.draw(batch, "Scores: " + score, 10,Gdx.graphics.getHeight() - 20);
+        batch.draw(gras,-50,-50);
         batch.draw(sight, InputHandler.getMousePosition().x - sight.getWidth()/2,InputHandler.getMousePosition().y - sight.getHeight()/2);
         batch.end();
     }
@@ -69,3 +67,4 @@ public class PlayState extends AbstractState {
         }
     }
 }
+
