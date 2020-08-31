@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.state.PlayState;
 
+import java.util.logging.Handler;
+
 public class Duck {
     private  Texture texture;
     private Vector2 position;
@@ -31,7 +33,8 @@ public class Duck {
         if (!isKilled) {
             batch.draw(texture, position.x, position.y, frame * WIDTH, 0, WIDTH, HEIGHT);
         } else {
-            batch.draw(texture,position.x,position.y,texture.getWidth()/2,texture.getHeight()/2,texture.getWidth(),texture.getHeight(),1,1,40,0,0,64,64,false,false);
+            System.out.println("click");
+            batch.draw(texture, position.x, position.y, frame * WIDTH, 0, WIDTH, HEIGHT,0.5f,0.5f, 23.7f,0,0,WIDTH, HEIGHT,false,false);
         }
     }
 
@@ -41,12 +44,12 @@ public class Duck {
 
     public void update(float delta) {
         time+= delta;
-        position.add(velocity);
+        //position.add(velocity);
         if (position.x < -texture.getWidth()) position.x = Gdx.graphics.getWidth();
         if (position.y < -texture.getHeight()) position.y = Gdx.graphics.getHeight();
         if (position.x > Gdx.graphics.getWidth()) position.x = -texture.getWidth();
         if (position.y > Gdx.graphics.getHeight()) position.y = -texture.getHeight();
-        velocity.x += 0.5f * delta;
+        //velocity.x += 0.5f * delta;
         bounds.setPosition(position.x,position.y);
     }
 
