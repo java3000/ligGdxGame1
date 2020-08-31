@@ -36,13 +36,11 @@ public class MenuState extends AbstractState {
             xCoordBg1 = xMax;
             xCoordBg2 = 0;
         }
-
         handleInput();
     }
 
     @Override
     public void render(SpriteBatch batch) {
-
         batch.begin();
         batch.draw(background1,xCoordBg1,-50);
         batch.draw(background2,xCoordBg2,-50);
