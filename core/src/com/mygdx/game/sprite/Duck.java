@@ -47,6 +47,7 @@ public class Duck {
         if (position.x > Gdx.graphics.getWidth()) position.x = -texture.getWidth();
         if (position.y > Gdx.graphics.getHeight()) position.y = -texture.getHeight();
         velocity.x += 0.5f * delta;
+        bounds.setPosition(position.x,position.y);
     }
 
     public boolean collide(Rectangle player) {

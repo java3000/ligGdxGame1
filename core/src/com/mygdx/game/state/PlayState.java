@@ -21,7 +21,9 @@ public class PlayState extends AbstractState {
     private int score;
     private final int DUCKS_COUNT = 5;
     private Duck[] ducks;
-    private Rectangle bounds;
+    private Rectangle sightBounds;
+
+    private boolean gameOver;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -31,18 +33,28 @@ public class PlayState extends AbstractState {
         gras = new Texture("gras.png");
         ground = new Texture("ground.png");
         score = 0;
+        sightBounds = new Rectangle(InputHandler.getMousePosition().x - sight.getWidth() / 2,InputHandler.getMousePosition().y - sight.getHeight() / 2,sight.getWidth(),sight.getHeight());
         ducks = new Duck[DUCKS_COUNT];
         ducks[0] = new Duck(new Vector2(0,0),new Vector2(2.0f,2.0f));
         for (int i = 1; i < DUCKS_COUNT; i++) {
             ducks[i] = new Duck(new Vector2(ducks[i - 1].getPosition().x + MathUtils.random(90,200), ducks[i - 1].getPosition().y + MathUtils.random(90,200)),
-                    new Vector2(ducks[i - 1].getVelocity().x + MathUtils.random(1,2),ducks[i - 1].getVelocity().y + MathUtils.random(1,2)));
+                    new Vector2(ducks[i - 1].getVelocity().x,ducks[i - 1].getVelocity().y));
         }
+        gameOver = false;
     }
 
     @Override
     public void update(float delta) {
-        for (int i = 0; i < DUCKS_COUNT; i++) {
-            ducks[i].update(delta);
+        if (!gameOver) {
+            for (int i = 0; i < DUCKS_COUNT; i++) {
+                ducks[i].update(delta);
+            }
+            for (int i = 0; i < ducks.length; i++) {
+                if (InputHandler.isPressed() && ducks[i].getBounds().overlaps(sightBounds)) {
+                    score++;
+                    ducks[i].setKilled(true);
+                }
+            }
         }
     }
 
