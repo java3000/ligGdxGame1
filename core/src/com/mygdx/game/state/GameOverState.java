@@ -24,7 +24,7 @@ public class GameOverState extends AbstractState {
     public void render(SpriteBatch batch) {
         batch.begin();
         batch.draw(background,0,0);
-        font.draw(batch, "Game over!", Gdx.graphics.getWidth() / 2,Gdx.graphics.getHeight() / 2);
+        font.draw(batch, "Game over!", (Gdx.graphics.getWidth() / 2) - 20,Gdx.graphics.getHeight() / 2);
         batch.end();
 
     }
