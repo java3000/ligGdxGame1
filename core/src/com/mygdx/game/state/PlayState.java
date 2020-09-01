@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputHandler;
 import com.mygdx.game.sprite.Duck;
 
-import java.util.Random;
 
 public class PlayState extends AbstractState {
     private BitmapFont font;
@@ -23,8 +22,6 @@ public class PlayState extends AbstractState {
     private Duck[] ducks;
     private Rectangle sightBounds;
 
-    private boolean gameOver;
-
     public PlayState(GameStateManager gsm) {
         super(gsm);
         fon = new Texture("fon.png");
@@ -35,26 +32,17 @@ public class PlayState extends AbstractState {
         score = 0;
         sightBounds = new Rectangle(InputHandler.getMousePosition().x - sight.getWidth() / 2,InputHandler.getMousePosition().y - sight.getHeight() / 2,sight.getWidth(),sight.getHeight());
         ducks = new Duck[DUCKS_COUNT];
-        ducks[0] = new Duck(new Vector2(0,0),new Vector2(2.0f,2.0f));
+        ducks[0] = new Duck(new Vector2(0,0),new Vector2(1.5f,1.0f));
         for (int i = 1; i < DUCKS_COUNT; i++) {
-            ducks[i] = new Duck(new Vector2(ducks[i - 1].getPosition().x + MathUtils.random(90,200), ducks[i - 1].getPosition().y + MathUtils.random(90,200)),
+            ducks[i] = new Duck(new Vector2(ducks[i - 1].getPosition().x - MathUtils.random(200,300), ducks[i - 1].getPosition().y - MathUtils.random(200,300)),
                     new Vector2(ducks[i - 1].getVelocity().x,ducks[i - 1].getVelocity().y));
         }
-        gameOver = false;
     }
 
     @Override
     public void update(float delta) {
-        if (!gameOver) {
-            for (int i = 0; i < DUCKS_COUNT; i++) {
-                ducks[i].update(delta);
-            }
-            for (int i = 0; i < ducks.length; i++) {
-                if (InputHandler.isPressed() && ducks[i].getBounds().overlaps(sightBounds)) {
-                    score++;
-                    ducks[i].setKilled(true);
-                }
-            }
+        for (int i = 0; i < DUCKS_COUNT; i++) {
+            ducks[i].update(delta);
         }
     }
 
@@ -65,6 +53,12 @@ public class PlayState extends AbstractState {
 
         for (int i = 0; i < DUCKS_COUNT; i++) {
             ducks[i].render(batch);
+            if (InputHandler.isPressed()) {
+                if (sightBounds.overlaps(ducks[i].getBounds())) {
+                    ducks[i].setKilled(true);
+                    score++;
+                }
+            }
         }
         font.draw(batch, "Scores: " + score, 10,Gdx.graphics.getHeight() - 20);
         int x= 0;
@@ -73,10 +67,13 @@ public class PlayState extends AbstractState {
             batch.draw(gras,-30 + x,-80);
             x+=ground.getWidth();
         } while (x <= Gdx.graphics.getWidth());
-
-
         batch.draw(sight, InputHandler.getMousePosition().x - sight.getWidth()/2,InputHandler.getMousePosition().y - sight.getHeight()/2);
+        if (ducks[DUCKS_COUNT - 1].getBounds().x - ducks[DUCKS_COUNT - 1].getBounds().width > Gdx.graphics.getWidth() || ducks[DUCKS_COUNT - 1].isKilled()) gsm.set(new GameOverState(gsm));
         batch.end();
+    }
+
+    public Rectangle getSightBounds() {
+        return sightBounds;
     }
 
     @Override

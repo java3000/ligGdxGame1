@@ -33,11 +33,6 @@ public class MainClass extends ApplicationAdapter {
 		gsm.render(batch);
 
 	}
-
-	public void update() {
-
-
-	}
 	
 	@Override
 	public void dispose () {
