@@ -1,12 +1,9 @@
 package com.mygdx.game.sprite;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.InputHandler;
-import com.mygdx.game.state.PlayState;
 
 
 public class Duck {
@@ -16,7 +13,7 @@ public class Duck {
     private Rectangle bounds;
     private boolean isKilled;
 
-    float time;
+    private float time;
     private final int WIDTH = 252;
     private final int HEIGHT = 256;
 
@@ -40,10 +37,6 @@ public class Duck {
     public void update(float delta) {
         time+= delta;
         position.add(velocity);
-//        if (position.x < -texture.getWidth()) position.x = Gdx.graphics.getWidth();
-//        if (position.y < -texture.getHeight()) position.y = Gdx.graphics.getHeight();
-//        if (position.x > Gdx.graphics.getWidth()) position.x = -texture.getWidth();
-//        if (position.y > Gdx.graphics.getHeight()) position.y = -texture.getHeight();
         velocity.x += 0.05f * delta;
         bounds.setPosition(position.x,position.y);
         if (isKilled) {
