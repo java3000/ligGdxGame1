@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputHandler;
+import com.mygdx.game.Score;
 import com.mygdx.game.sprite.Duck;
 
 
@@ -55,6 +56,7 @@ public class PlayState extends AbstractState {
                 if (ducks[i].getBounds().contains(InputHandler.getMousePosition().x,InputHandler.getMousePosition().y)) {
                     ducks[i].setKilled(true);
                     score++;
+                    Score.setScores(score);
                 }
             }
         }

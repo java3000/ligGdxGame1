@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Score;
 
 public class GameOverState extends AbstractState {
     private Texture background;
@@ -30,7 +31,8 @@ public class GameOverState extends AbstractState {
     public void render(SpriteBatch batch) {
         batch.begin();
         batch.draw(background,0,0);
-        font.draw(batch, "Game over!", (Gdx.graphics.getWidth() / 2) - 20,Gdx.graphics.getHeight() / 2);
+        font.draw(batch, "Game over!", (Gdx.graphics.getWidth() / 2) - 90,Gdx.graphics.getHeight() / 2 + 80);
+        font.draw(batch, "Scores: " + Score.getScores(), (Gdx.graphics.getWidth() / 2) - 90,Gdx.graphics.getHeight() / 2 + 30);
         batch.end();
 
     }
