@@ -54,7 +54,7 @@ public class PlayState extends AbstractState {
         for (int i = 0; i < DUCKS_COUNT; i++) {
             ducks[i].render(batch);
             if (InputHandler.isPressed()) {
-                if (sightBounds.overlaps(ducks[i].getBounds())) {
+                if (ducks[i].getBounds().contains(InputHandler.getMousePosition().x,InputHandler.getMousePosition().y)) {
                     ducks[i].setKilled(true);
                     score++;
                 }
