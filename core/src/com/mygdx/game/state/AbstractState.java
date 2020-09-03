@@ -3,7 +3,7 @@ package com.mygdx.game.state;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class AbstractState {
-    
+
     protected GameStateManager gsm;
 
     public AbstractState(GameStateManager gsm) {

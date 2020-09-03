@@ -17,7 +17,13 @@ public class GameOverState extends AbstractState {
 
     @Override
     public void update(float delta) {
+        handleInput();
+    }
 
+    private void handleInput() {
+        if (Gdx.input.isTouched()) {
+            gsm.set(new PlayState(gsm));
+        }
     }
 
     @Override
