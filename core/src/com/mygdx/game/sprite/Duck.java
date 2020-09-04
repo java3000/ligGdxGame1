@@ -14,6 +14,7 @@ public class Duck {
     private boolean isKilled;
 
     private float time;
+    private float angle = 0;
     private final int WIDTH = 252;
     private final int HEIGHT = 256;
 
@@ -27,7 +28,8 @@ public class Duck {
     public void render(SpriteBatch batch) {
         int frame = (int) (time / 0.1f);
         frame = frame % 4;
-        batch.draw(texture, position.x, position.y, frame * WIDTH, 0, WIDTH, HEIGHT);
+        //batch.draw(texture, position.x, position.y, frame * WIDTH, 0, WIDTH, HEIGHT);
+        batch.draw(texture, position.x, position.y, WIDTH/2, HEIGHT/2, WIDTH, HEIGHT,1,1,angle,frame * WIDTH,0, WIDTH,HEIGHT,false,false);
     }
 
     public void dispose() {
@@ -40,7 +42,8 @@ public class Duck {
         velocity.x += 0.05f * delta;
         bounds.setPosition(position.x,position.y);
         if (isKilled) {
-            position.y = -256;
+            angle+=10;
+            velocity.y--;
         }
     }
 
