@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.state.GameStateManager;
 import com.mygdx.game.state.MenuState;
 
@@ -15,9 +17,11 @@ import java.util.Random;
 public class MainClass extends ApplicationAdapter {
 	private GameStateManager gsm;
 	private SpriteBatch batch;
+	Viewport viewport;
 
 	@Override
 	public void create () {
+		viewport = new FitViewport(1280,720);
 		gsm = new GameStateManager();
 		batch = new SpriteBatch();
 
@@ -33,7 +37,17 @@ public class MainClass extends ApplicationAdapter {
 		gsm.render(batch);
 
 	}
-	
+
+	@Override
+	public void resize(int width, int height) {
+		getViewport().update(width,height,true);
+		getViewport().apply();
+	}
+
+	public Viewport getViewport() {
+		return viewport;
+	}
+
 	@Override
 	public void dispose () {
 		batch.dispose();
